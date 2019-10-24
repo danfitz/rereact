@@ -6,6 +6,8 @@ function createElement(type, children) {
 // This function converts the virtual DOM object into actual nested DOM elements
 // USES RECURSION
 function renderNode(node) {
+  node = node.isComponent ? node.render() : node;
+
   const element = document.createElement(node.type);
   
   node.children.forEach(child => {
@@ -23,8 +25,6 @@ function renderNode(node) {
 
 // This function is like ReactDOM.render: it takes a vDOM object and renders it to a chosen location in the DOM
 function render(node, domDestination) {
-  node = node.isComponent ? node.render() : node;
-
   while (domDestination.firstChild) {
     domDestination.removeChild(domDestination.firstChild);
   };
@@ -33,8 +33,9 @@ function render(node, domDestination) {
 };
 
 class Component {
-  constructor() {
+  constructor(props) {
     this.state = {};
+    this.props = props;
   };
   
   setState(partialState) {
@@ -47,25 +48,23 @@ Component.prototype.isComponent = true;
 
 // *******************************************
 
-// Sample virtual DOM object
-const renderApp = (title) => {
-  return createElement("div", [
-    createElement("h1", [title]),
-    createElement("p", ["This is a description"]),
-    createElement("ul", [
-      createElement("li", ["item 1"]),
-      createElement("li", ["item 2"]),
-      createElement("li", ["item 3"]),
-      createElement("li", ["item 4"]),
-      createElement("li", ["item 5"])
-    ])
-  ]);
+class Item extends Component {
+  constructor(props) {
+    super(props);
+  };
+
+  render() {
+    return createElement("li", [this.props.name]);
+  };
 };
 
 class App extends Component {
   constructor() {
     super();
-    this.state = { title: "Dan Fitz's App" };
+    this.state = {
+      title: "Dan Fitz's App",
+      items: ["item a", "item b", "item c", "item d", "item e"]
+    };
     
     setInterval(() => {
       this.setState({
@@ -75,7 +74,11 @@ class App extends Component {
   };
 
   render() {
-    return renderApp(this.state.title);
+    return createElement("div", [
+      createElement("h1", [this.state.title]),
+      createElement("p", ["This is a description"]),
+      createElement("ul", this.state.items.map(item => { return new Item({ name: item }) }))
+    ]);
   };
 };
 
