@@ -1,4 +1,4 @@
-import { Component } from "./rereactClasses.js";
+import { Component } from "./RereactClasses.js";
 
 const Rereact = {
   // This function is what JSX compiles into

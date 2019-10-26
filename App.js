@@ -1,5 +1,5 @@
-import Rereact from "./rereact.js";
-import RereactDOM from "./rereactDOM.js";
+import Rereact from "./Rereact.js";
+import RereactDOM from "./RereactDOM.js";
 
 const {createElement, Component} = Rereact;
 

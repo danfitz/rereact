@@ -1,4 +1,4 @@
-import RereactDOM from "./rereactDOM.js";
+import RereactDOM from "./RereactDOM.js";
 
 export class Component {
   constructor(props) {
