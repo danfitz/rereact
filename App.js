@@ -1,5 +1,5 @@
-import Rereact from "./Rereact.js";
-import RereactDOM from "./RereactDOM.js";
+import Rereact from "./Rereact/Rereact.js";
+import RereactDOM from "./RereactDOM/RereactDOM.js";
 
 const {createElement, Component} = Rereact;
 
@@ -22,13 +22,15 @@ class App extends Component {
     };
 
     setInterval(() => {
-      this.setState({
-        title: this.state.title + "z"
-      });
+      // this.setState({
+      //   title: this.state.title + "z"
+      // });
     }, 1000);
   };
 
   render() {
+    console.log(this);
+    
     return createElement("div", [
       createElement("h1", [this.state.title]),
       createElement("p", ["This is a description"]),

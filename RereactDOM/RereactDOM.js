@@ -10,7 +10,12 @@ const RereactDOM = {
       if (typeof child === "string") {
         element.appendChild(document.createTextNode(child));
       } else if (child.isComponent) {
-        element.appendChild(this.renderNode(child.render()));
+        const childElement = this.renderNode(child.render());
+
+        // This gets used by updateComponent method
+        child.baseElement = childElement;
+        
+        element.appendChild(childElement);
       } else {
         element.appendChild(this.renderNode(child));
       };
@@ -26,6 +31,24 @@ const RereactDOM = {
     };
     
     domDestination.appendChild(this.renderNode(node));
+  },
+
+  // This function 
+  updateComponent(component) {
+    const oldElement = component.baseElement;
+    const newElement = component.render();
+
+    component.baseElement = diff(oldElement, newElement);
+  },
+
+  diff(oldElement, newElement) {
+    // New element's name
+    // name property if component, type property if normal element
+    const elementName = newElement.isComponent ? newElement.name : newElement.type;
+
+    if (oldElement.localName !== elementName) {
+      
+    };
   }
 };
 

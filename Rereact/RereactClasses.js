@@ -1,4 +1,4 @@
-import RereactDOM from "./RereactDOM.js";
+import RereactDOM from "../RereactDOM/RereactDOM.js";
 
 export class Component {
   constructor(props) {
@@ -8,7 +8,7 @@ export class Component {
   
   setState(partialState) {
     this.state = Object.assign(this.state, partialState);
-    RereactDOM.render(this, document.getElementById("root"));
+    RereactDOM.updateComponent(this);
   };
 };
 
