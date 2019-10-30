@@ -21,7 +21,7 @@ class App extends Component {
       items: ["item a", "item b", "item c", "item d", "item e"]
     };
 
-    setInterval(() => {
+    setTimeout(() => {
       // this.setState({
       //   title: this.state.title + "z"
       // });
